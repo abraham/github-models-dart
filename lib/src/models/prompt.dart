@@ -38,27 +38,24 @@ class Prompt with _$Prompt {
     // Convert messages from YAML
     if (jsonData['messages'] != null) {
       final messagesList = jsonData['messages'] as List;
-      jsonData['messages'] =
-          messagesList
-              .map((msg) => Message.fromYaml(Map.from(msg)).toJson())
-              .toList();
+      jsonData['messages'] = messagesList
+          .map((msg) => Message.fromYaml(Map.from(msg)).toJson())
+          .toList();
     }
 
     // Convert model_parameters from YAML
     if (jsonData['model_parameters'] != null) {
-      jsonData['model_parameters'] =
-          ModelParameters.fromYaml(
-            Map.from(jsonData['model_parameters']),
-          ).toJson();
+      jsonData['model_parameters'] = ModelParameters.fromYaml(
+        Map.from(jsonData['model_parameters']),
+      ).toJson();
     }
 
     // Convert test_data from YAML
     if (jsonData['test_data'] != null) {
       final testDataList = jsonData['test_data'] as List;
-      jsonData['test_data'] =
-          testDataList
-              .map((test) => TestData.fromYaml(Map.from(test)).toJson())
-              .toList();
+      jsonData['test_data'] = testDataList
+          .map((test) => TestData.fromYaml(Map.from(test)).toJson())
+          .toList();
     }
 
     return Prompt.fromJson(jsonData);

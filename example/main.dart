@@ -50,8 +50,9 @@ Future<void> loadPromptFile(String filePath) async {
       for (var i = 0; i < prompt.messages!.length; i++) {
         final message = prompt.messages![i];
         final content = message.content ?? '';
-        final truncatedContent =
-            content.length > 50 ? '${content.substring(0, 50)}...' : content;
+        final truncatedContent = content.length > 50
+            ? '${content.substring(0, 50)}...'
+            : content;
         print('Message $i - Role: ${message.role}, Content: $truncatedContent');
       }
     }
