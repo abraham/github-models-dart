@@ -1,0 +1,5 @@
+{
+  "features": {
+    "ghcr.io/devcontainers-community/features/dart-sdk": { "version": "3.7.0" }
+  }
+}
