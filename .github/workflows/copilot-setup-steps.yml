@@ -17,16 +17,8 @@ jobs:
       contents: read
 
     steps:
-      - name: Setup Dart
-        uses: dart-lang/setup-dart@v1
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
         with:
           sdk: '3.7.0'
-      
-      - name: Install dependencies
-    run: dart pub get
-
-
-
-
-
-
+      - run: dart pub get
