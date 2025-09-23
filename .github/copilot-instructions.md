@@ -25,7 +25,7 @@ Before any work can be considered complete, these commands MUST ALL PASS:
 ```bash
 dart test                                                    # All tests must pass
 dart format --set-exit-if-changed .                        # Code must be properly formatted
-dart analyze                                                # Static analysis must pass (warnings OK)
+dart analyze                                                # Static analysis must pass (warnings must be fixed too)
 dart run build_runner build --delete-conflicting-outputs   # Code generation must succeed
 ```
 
