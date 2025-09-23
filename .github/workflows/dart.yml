@@ -1,8 +1,6 @@
 name: Dart CI
 
-on:
-  push:
-    branches: [ '*' ]
+on: :push
 
 jobs:
   test:
@@ -27,3 +25,4 @@ jobs:
     
     - name: Run tests
       run: dart test
+
