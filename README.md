@@ -1,6 +1,6 @@
 # github-models-dart
 
-A Dart package for working with GitHub Models API and Prompt specifications. This package provides type-safe models for parsing and generating GitHub Models prompt configurations.
+A Dart package for working with GitHub Models prompt specifications. This package provides type-safe models for parsing and generating GitHub Models prompt configurations, but does not directly interface with the GitHub Models API.
 
 ## Installation
 
@@ -25,7 +25,37 @@ dart pub get
 import 'package:github_models/github_models.dart';
 ```
 
-### Quick Start
+### Loading from YAML Data
+
+The most common use case is parsing YAML prompt specifications:
+
+```dart
+import 'package:github_models/github_models.dart';
+
+void main() {
+  // Example YAML data as a Map
+  final yamlData = {
+    'name': 'Code Assistant',
+    'description': 'Helps with coding tasks',
+    'version': '2.0.0',
+    'messages': [
+      {'role': 'system', 'content': 'You are a coding assistant.'},
+      {'role': 'user', 'content': 'Explain recursion.'},
+    ],
+    'model_parameters': {
+      'temperature': 0.3,
+      'top_p': 0.7,
+    },
+  };
+
+  // Parse YAML data into Prompt model
+  final prompt = Prompt.fromYaml(yamlData);
+  
+  print('Loaded prompt: ${prompt.name}');
+}
+```
+
+### Creating Prompts Programmatically
 
 Create a simple prompt:
 
@@ -100,36 +130,6 @@ void main() {
   // Convert to JSON
   final json = prompt.toJson();
   print('JSON Keys: ${json.keys.join(', ')}');
-}
-```
-
-### Working with YAML Data
-
-The package also supports parsing from YAML data:
-
-```dart
-import 'package:github_models/github_models.dart';
-
-void main() {
-  // Example YAML data as a Map
-  final yamlData = {
-    'name': 'Code Assistant',
-    'description': 'Helps with coding tasks',
-    'version': '2.0.0',
-    'messages': [
-      {'role': 'system', 'content': 'You are a coding assistant.'},
-      {'role': 'user', 'content': 'Explain recursion.'},
-    ],
-    'model_parameters': {
-      'temperature': 0.3,
-      'top_p': 0.7,
-    },
-  };
-
-  // Parse YAML data into Prompt model
-  final prompt = Prompt.fromYaml(yamlData);
-  
-  print('Loaded prompt: ${prompt.name}');
 }
 ```
 
