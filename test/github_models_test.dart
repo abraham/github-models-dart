@@ -36,7 +36,7 @@ void main() {
       expect(prompt.messages, hasLength(2));
       expect(prompt.modelParameters, isNotNull);
       expect(prompt.testData, hasLength(1));
-      
+
       // Verify serialization works end-to-end
       final json = prompt.toJson();
       expect(json, isA<Map<String, dynamic>>());
