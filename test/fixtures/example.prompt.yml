@@ -1,0 +1,22 @@
+name: Text Summarizer
+description: Summarizes input text concisely
+model_parameters:
+  temperature: 0.5
+messages:
+  - role: system
+    content: You are a text summarizer. Your only job is to summarize text given to you.
+  - role: user
+    content: |
+      Summarize the given text, beginning with "Summary -":
+      <text>
+      {{input}}
+      </text>
+test_data:
+  - name: summarization_test
+    description: Test text summarization capability
+    input:
+      text: |
+        The quick brown fox jumped over the lazy dog.
+        The dog was too tired to react.
+    expected_output:
+      summary: Summary - A fox jumped over a lazy, unresponsive dog.
