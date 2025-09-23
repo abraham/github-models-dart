@@ -1,0 +1,12 @@
+# Copilot Coding Agent Setup Steps
+# This file configures the environment setup for GitHub Copilot Coding Agent
+# Reference: https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/customize-the-agent-environment
+
+steps:
+  - name: Setup Dart
+    uses: dart-lang/setup-dart@v1
+    with:
+      sdk: '3.7.0'
+  
+  - name: Install dependencies
+    run: dart pub get
