@@ -1,0 +1,64 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'message.dart';
+import 'model_parameters.dart';
+import 'test_data.dart';
+
+part 'prompt.freezed.dart';
+part 'prompt.g.dart';
+
+/// Root model for GitHub Models Prompt YAML spec.
+@freezed
+class Prompt with _$Prompt {
+  const factory Prompt({
+    /// Name or title of the prompt.
+    String? name,
+    
+    /// Description of the prompt's purpose.
+    String? description,
+    
+    /// Version of the prompt.
+    String? version,
+    
+    /// List of messages in the conversation.
+    List<Message>? messages,
+    
+    /// Model-specific parameters.
+    @JsonKey(name: 'model_parameters') ModelParameters? modelParameters,
+    
+    /// Test cases for validating the prompt.
+    @JsonKey(name: 'test_data') List<TestData>? testData,
+  }) = _Prompt;
+
+  factory Prompt.fromJson(Map<String, dynamic> json) =>
+      _$PromptFromJson(json);
+
+  /// Creates Prompt from YAML data.
+  factory Prompt.fromYaml(Map yaml) {
+    final jsonData = Map<String, dynamic>.from(yaml);
+    
+    // Convert messages from YAML
+    if (jsonData['messages'] != null) {
+      final messagesList = jsonData['messages'] as List;
+      jsonData['messages'] = messagesList
+          .map((msg) => Message.fromYaml(Map.from(msg)).toJson())
+          .toList();
+    }
+    
+    // Convert model_parameters from YAML
+    if (jsonData['model_parameters'] != null) {
+      jsonData['model_parameters'] = ModelParameters
+          .fromYaml(Map.from(jsonData['model_parameters']))
+          .toJson();
+    }
+    
+    // Convert test_data from YAML
+    if (jsonData['test_data'] != null) {
+      final testDataList = jsonData['test_data'] as List;
+      jsonData['test_data'] = testDataList
+          .map((test) => TestData.fromYaml(Map.from(test)).toJson())
+          .toList();
+    }
+    
+    return Prompt.fromJson(jsonData);
+  }
+}
