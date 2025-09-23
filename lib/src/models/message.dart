@@ -6,7 +6,7 @@ part 'message.g.dart';
 /// Represents a message in the conversation for GitHub Models Prompt spec.
 /// Only includes role and content as specified in the requirements.
 @freezed
-class Message with _$Message {
+abstract class Message with _$Message {
   const factory Message({
     /// The role of the message sender (e.g., 'user', 'assistant', 'system').
     String? role,

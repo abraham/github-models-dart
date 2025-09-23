@@ -6,7 +6,7 @@ part 'model_parameters.g.dart';
 /// Model-specific parameters for GitHub Models Prompt spec.
 /// Only includes temperature and topP as specified in the requirements.
 @freezed
-class ModelParameters with _$ModelParameters {
+abstract class ModelParameters with _$ModelParameters {
   const factory ModelParameters({
     /// Controls randomness in the model's output.
     /// Higher values make output more random, lower values more deterministic.

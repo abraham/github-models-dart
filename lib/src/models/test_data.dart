@@ -5,7 +5,7 @@ part 'test_data.g.dart';
 
 /// Represents test case data for GitHub Models Prompt spec.
 @freezed
-class TestData with _$TestData {
+abstract class TestData with _$TestData {
   const factory TestData({
     /// Name or identifier for the test case.
     String? name,
