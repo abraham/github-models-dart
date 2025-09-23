@@ -9,13 +9,13 @@ class TestData with _$TestData {
   const factory TestData({
     /// Name or identifier for the test case.
     String? name,
-    
+
     /// Description of what this test case validates.
     String? description,
-    
+
     /// Input data for the test case.
     @JsonKey(name: 'input') Map<String, dynamic>? inputData,
-    
+
     /// Expected output for the test case.
     @JsonKey(name: 'expected_output') Map<String, dynamic>? expectedOutput,
   }) = _TestData;
