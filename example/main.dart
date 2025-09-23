@@ -1,57 +1,71 @@
+import 'dart:io';
 import 'package:github_models/github_models.dart';
+import 'package:yaml/yaml.dart';
 
-void main() {
-  // Example YAML data representing a GitHub Models Prompt spec
-  final yamlData = {
-    'name': 'Creative Writing Assistant',
-    'description': 'A prompt for creative writing assistance',
-    'version': '1.2.0',
-    'messages': [
-      {
-        'role': 'system',
-        'content':
-            'You are a creative writing assistant that helps users improve their stories.',
-      },
-      {
-        'role': 'user',
-        'content': 'Help me write a short story about a magical forest.',
-      },
-    ],
-    'model_parameters': {'temperature': 0.8, 'top_p': 0.9},
-    'test_data': [
-      {
-        'name': 'creative_test',
-        'description': 'Test creative writing capabilities',
-        'input': {'prompt': 'Write about a magical forest', 'style': 'fantasy'},
-        'expected_output': {
-          'contains': ['forest', 'magical', 'story'],
-          'word_count': 200,
-        },
-      },
-    ],
-  };
+void main() async {
+  // Load prompt files from disk
+  await loadPromptFile('example/example.prompt.yml');
+  print('---');
+  await loadPromptFile('example/minimal.prompt.yml');
+}
 
-  // Parse YAML data into Prompt model
-  final prompt = Prompt.fromYaml(yamlData);
-
-  print('Prompt Name: ${prompt.name}');
-  print('Version: ${prompt.version}');
-  print('Messages: ${prompt.messages?.length}');
-  print('Temperature: ${prompt.modelParameters?.temperature}');
-  print('Top-P: ${prompt.modelParameters?.topP}');
-  print('Test Cases: ${prompt.testData?.length}');
-
-  // Access individual messages
-  if (prompt.messages != null) {
-    for (var i = 0; i < prompt.messages!.length; i++) {
-      final message = prompt.messages![i];
-      print(
-        'Message $i - Role: ${message.role}, Content: ${message.content?.substring(0, 50)}...',
-      );
-    }
+/// Recursively converts YamlMap/YamlList to regular Dart Map/List
+dynamic _yamlToMap(dynamic yaml) {
+  if (yaml is YamlMap) {
+    return {
+      for (final key in yaml.keys)
+        key.toString(): _yamlToMap(yaml[key])
+    };
+  } else if (yaml is YamlList) {
+    return yaml.map(_yamlToMap).toList();
   }
+  return yaml;
+}
 
-  // Convert back to JSON
-  final json = prompt.toJson();
-  print('Converted to JSON successfully: ${json.keys.join(', ')}');
+Future<void> loadPromptFile(String filePath) async {
+  try {
+    print('Loading prompt from: $filePath');
+    
+    // Read YAML file
+    final file = File(filePath);
+    final yamlString = await file.readAsString();
+    
+    // Parse YAML string
+    final yamlData = loadYaml(yamlString);
+    
+    // Convert YamlMap to regular Map recursively
+    final mapData = _yamlToMap(yamlData);
+    
+    // Convert to Map and parse into Prompt model
+    final prompt = Prompt.fromYaml(mapData);
+    
+    // Display prompt information
+    print('Prompt Name: ${prompt.name ?? "Unnamed"}');
+    print('Description: ${prompt.description ?? "No description"}');
+    print('Version: ${prompt.version ?? "No version"}');
+    print('Messages: ${prompt.messages?.length ?? 0}');
+    print('Temperature: ${prompt.modelParameters?.temperature ?? "Not set"}');
+    print('Top-P: ${prompt.modelParameters?.topP ?? "Not set"}');
+    print('Test Cases: ${prompt.testData?.length ?? 0}');
+    
+    // Access individual messages
+    if (prompt.messages != null) {
+      for (var i = 0; i < prompt.messages!.length; i++) {
+        final message = prompt.messages![i];
+        final content = message.content ?? '';
+        final truncatedContent = content.length > 50 
+            ? '${content.substring(0, 50)}...' 
+            : content;
+        print('Message $i - Role: ${message.role}, Content: $truncatedContent');
+      }
+    }
+    
+    // Convert back to JSON to demonstrate serialization
+    final json = prompt.toJson();
+    print('Converted to JSON successfully: ${json.keys.join(', ')}');
+    
+    print('Successfully loaded and parsed: $filePath');
+  } catch (e) {
+    print('Error loading $filePath: $e');
+  }
 }
