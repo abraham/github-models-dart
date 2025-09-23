@@ -1,6 +1,7 @@
 name: Dart CI
 
-on: :push
+on: 
+  push:
 
 jobs:
   test:
@@ -36,4 +37,6 @@ jobs:
     
     - name: Run tests
       run: dart test
+
+
 
