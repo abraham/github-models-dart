@@ -17,10 +17,7 @@ void main() {
     });
 
     test('creates with provided fields', () {
-      const message = Message(
-        role: 'user',
-        content: 'Hello, how are you?',
-      );
+      const message = Message(role: 'user', content: 'Hello, how are you?');
       expect(message.role, equals('user'));
       expect(message.content, equals('Hello, how are you?'));
     });
@@ -61,29 +58,20 @@ void main() {
     });
 
     test('creates with provided fields', () {
-      const params = ModelParameters(
-        temperature: 0.7,
-        topP: 0.9,
-      );
+      const params = ModelParameters(temperature: 0.7, topP: 0.9);
       expect(params.temperature, equals(0.7));
       expect(params.topP, equals(0.9));
     });
 
     test('creates from JSON with snake_case', () {
-      final json = {
-        'temperature': 0.8,
-        'top_p': 0.95,
-      };
+      final json = {'temperature': 0.8, 'top_p': 0.95};
       final params = ModelParameters.fromJson(json);
       expect(params.temperature, equals(0.8));
       expect(params.topP, equals(0.95));
     });
 
     test('creates from YAML map', () {
-      final yaml = {
-        'temperature': 0.5,
-        'top_p': 0.8,
-      };
+      final yaml = {'temperature': 0.5, 'top_p': 0.8};
       final params = ModelParameters.fromYaml(yaml);
       expect(params.temperature, equals(0.5));
       expect(params.topP, equals(0.8));
@@ -130,7 +118,10 @@ void main() {
       expect(testData.name, equals('test2'));
       expect(testData.description, equals('Second test'));
       expect(testData.inputData, equals({'query': 'What is AI?'}));
-      expect(testData.expectedOutput, equals({'answer': 'Artificial Intelligence'}));
+      expect(
+        testData.expectedOutput,
+        equals({'answer': 'Artificial Intelligence'}),
+      );
     });
 
     test('creates from YAML map', () {
@@ -213,10 +204,7 @@ void main() {
           {'role': 'system', 'content': 'You are helpful'},
           {'role': 'user', 'content': 'What is 2+2?'},
         ],
-        'model_parameters': {
-          'temperature': 0.5,
-          'top_p': 0.8,
-        },
+        'model_parameters': {'temperature': 0.5, 'top_p': 0.8},
         'test_data': [
           {
             'name': 'math_test',
@@ -228,7 +216,7 @@ void main() {
       };
 
       final prompt = Prompt.fromYaml(yaml);
-      
+
       expect(prompt.name, equals('YAML Prompt'));
       expect(prompt.description, equals('Created from YAML'));
       expect(prompt.version, equals('2.0.0'));
@@ -251,7 +239,7 @@ void main() {
       };
 
       final prompt = Prompt.fromYaml(yaml);
-      
+
       expect(prompt.name, equals('Minimal Prompt'));
       expect(prompt.description, isNull);
       expect(prompt.version, isNull);

@@ -11,7 +11,7 @@ class ModelParameters with _$ModelParameters {
     /// Controls randomness in the model's output.
     /// Higher values make output more random, lower values more deterministic.
     double? temperature,
-    
+
     /// Controls diversity via nucleus sampling.
     /// Lower values focus on more likely tokens.
     @JsonKey(name: 'top_p') double? topP,

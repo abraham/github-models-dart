@@ -10,7 +10,7 @@ class Message with _$Message {
   const factory Message({
     /// The role of the message sender (e.g., 'user', 'assistant', 'system').
     String? role,
-    
+
     /// The content of the message.
     String? content,
   }) = _Message;
