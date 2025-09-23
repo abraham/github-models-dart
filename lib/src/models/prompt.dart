@@ -8,7 +8,7 @@ part 'prompt.g.dart';
 
 /// Root model for GitHub Models Prompt YAML spec.
 @freezed
-class Prompt with _$Prompt {
+abstract class Prompt with _$Prompt {
   const factory Prompt({
     /// Name or title of the prompt.
     String? name,
