@@ -3,6 +3,8 @@ include: package:lints/recommended.yaml
 analyzer:
   exclude:
     - "build/**"
+  errors:
+    invalid_annotation_target: ignore
 
 linter:
   rules:
