@@ -55,6 +55,29 @@ void main() {
       expect(prompt.testData, isNull);
     });
 
+    test('loads fixture example.prompt.yml correctly', () async {
+      final file = File('test/fixtures/example.prompt.yml');
+      expect(
+        file.existsSync(),
+        isTrue,
+        reason: 'fixture example.prompt.yml should exist',
+      );
+
+      final yamlString = await file.readAsString();
+      final yamlData = loadYaml(yamlString);
+      final mapData = _yamlToMap(yamlData);
+      final prompt = Prompt.fromYaml(mapData);
+
+      expect(prompt.name, equals('Text Summarizer'));
+      expect(prompt.description, equals('Summarizes input text concisely'));
+      expect(prompt.messages, hasLength(2));
+      expect(prompt.messages![0].role, equals('system'));
+      expect(prompt.messages![1].role, equals('user'));
+      expect(prompt.modelParameters?.temperature, equals(0.5));
+      expect(prompt.testData, hasLength(1));
+      expect(prompt.testData![0].name, equals('summarization_test'));
+    });
+
     test('prompt files can be loaded and serialized', () async {
       // Test both files can be processed through the full pipeline
       final files = [
