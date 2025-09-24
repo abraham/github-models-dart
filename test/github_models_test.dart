@@ -17,8 +17,11 @@ void main() {
         description: 'Tests integration between all components',
         version: '1.0.0',
         messages: [
-          const Message(role: 'system', content: 'You are a helpful assistant'),
-          const Message(role: 'user', content: 'Hello world'),
+          const Message(
+            role: MessageRole.system,
+            content: 'You are a helpful assistant',
+          ),
+          const Message(role: MessageRole.user, content: 'Hello world'),
         ],
         modelParameters: const ModelParameters(temperature: 0.7, topP: 0.9),
         testData: [

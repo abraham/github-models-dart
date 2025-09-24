@@ -15,8 +15,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Message {
 
-/// The role of the message sender (e.g., 'user', 'assistant', 'system').
- String? get role;/// The content of the message.
+/// The role of the message sender.
+ MessageRole? get role;/// The content of the message.
  String? get content;
 /// Create a copy of Message
 /// with the given fields replaced by the non-null parameter values.
@@ -50,7 +50,7 @@ abstract mixin class $MessageCopyWith<$Res>  {
   factory $MessageCopyWith(Message value, $Res Function(Message) _then) = _$MessageCopyWithImpl;
 @useResult
 $Res call({
- String? role, String? content
+ MessageRole? role, String? content
 });
 
 
@@ -70,7 +70,7 @@ class _$MessageCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? role = freezed,Object? content = freezed,}) {
   return _then(_self.copyWith(
 role: freezed == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
-as String?,content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
+as MessageRole?,content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -156,7 +156,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? role,  String? content)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( MessageRole? role,  String? content)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Message() when $default != null:
 return $default(_that.role,_that.content);case _:
@@ -177,7 +177,7 @@ return $default(_that.role,_that.content);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? role,  String? content)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( MessageRole? role,  String? content)  $default,) {final _that = this;
 switch (_that) {
 case _Message():
 return $default(_that.role,_that.content);case _:
@@ -197,7 +197,7 @@ return $default(_that.role,_that.content);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? role,  String? content)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( MessageRole? role,  String? content)?  $default,) {final _that = this;
 switch (_that) {
 case _Message() when $default != null:
 return $default(_that.role,_that.content);case _:
@@ -215,8 +215,8 @@ class _Message implements Message {
   const _Message({this.role, this.content});
   factory _Message.fromJson(Map<String, dynamic> json) => _$MessageFromJson(json);
 
-/// The role of the message sender (e.g., 'user', 'assistant', 'system').
-@override final  String? role;
+/// The role of the message sender.
+@override final  MessageRole? role;
 /// The content of the message.
 @override final  String? content;
 
@@ -253,7 +253,7 @@ abstract mixin class _$MessageCopyWith<$Res> implements $MessageCopyWith<$Res> {
   factory _$MessageCopyWith(_Message value, $Res Function(_Message) _then) = __$MessageCopyWithImpl;
 @override @useResult
 $Res call({
- String? role, String? content
+ MessageRole? role, String? content
 });
 
 
@@ -273,7 +273,7 @@ class __$MessageCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? role = freezed,Object? content = freezed,}) {
   return _then(_Message(
 role: freezed == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
-as String?,content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
+as MessageRole?,content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
