@@ -1,3 +1,4 @@
+model: openai/gpt-4o
 messages:
   - role: system
     content: You are a text summarizer. Your only job is to summarize text given to you.
