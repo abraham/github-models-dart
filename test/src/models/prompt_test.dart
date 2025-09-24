@@ -19,8 +19,8 @@ void main() {
         description: 'A test prompt for validation',
         version: '1.0.0',
         messages: [
-          const Message(role: 'user', content: 'Hello'),
-          const Message(role: 'assistant', content: 'Hi there'),
+          const Message(role: MessageRole.user, content: 'Hello'),
+          const Message(role: MessageRole.assistant, content: 'Hi there'),
         ],
         modelParameters: const ModelParameters(temperature: 0.7, topP: 0.9),
         testData: [
@@ -36,7 +36,7 @@ void main() {
       expect(prompt.description, equals('A test prompt for validation'));
       expect(prompt.version, equals('1.0.0'));
       expect(prompt.messages, hasLength(2));
-      expect(prompt.messages![0].role, equals('user'));
+      expect(prompt.messages![0].role, equals(MessageRole.user));
       expect(prompt.messages![0].content, equals('Hello'));
       expect(prompt.modelParameters!.temperature, equals(0.7));
       expect(prompt.modelParameters!.topP, equals(0.9));
@@ -70,7 +70,7 @@ void main() {
       expect(prompt.description, equals('Created from YAML'));
       expect(prompt.version, equals('2.0.0'));
       expect(prompt.messages, hasLength(2));
-      expect(prompt.messages![0].role, equals('system'));
+      expect(prompt.messages![0].role, equals(MessageRole.system));
       expect(prompt.messages![1].content, equals('What is 2+2?'));
       expect(prompt.modelParameters!.temperature, equals(0.5));
       expect(prompt.modelParameters!.topP, equals(0.8));
@@ -93,7 +93,7 @@ void main() {
       expect(prompt.description, isNull);
       expect(prompt.version, isNull);
       expect(prompt.messages, hasLength(1));
-      expect(prompt.messages![0].role, equals('user'));
+      expect(prompt.messages![0].role, equals(MessageRole.user));
       expect(prompt.modelParameters, isNull);
       expect(prompt.testData, isNull);
     });

@@ -21,8 +21,8 @@ void main() {
       expect(prompt.name, equals('Text Summarizer'));
       expect(prompt.description, equals('Summarizes input text concisely'));
       expect(prompt.messages, hasLength(2));
-      expect(prompt.messages![0].role, equals('system'));
-      expect(prompt.messages![1].role, equals('user'));
+      expect(prompt.messages![0].role, equals(MessageRole.system));
+      expect(prompt.messages![1].role, equals(MessageRole.user));
       expect(prompt.modelParameters?.temperature, equals(0.5));
       expect(prompt.testData, hasLength(1));
       expect(prompt.testData![0].name, equals('summarization_test'));
@@ -44,7 +44,7 @@ void main() {
       expect(prompt.name, isNull);
       expect(prompt.description, isNull);
       expect(prompt.messages, hasLength(1));
-      expect(prompt.messages![0].role, equals('system'));
+      expect(prompt.messages![0].role, equals(MessageRole.system));
       expect(
         prompt.messages![0].content,
         equals(
@@ -71,8 +71,8 @@ void main() {
       expect(prompt.name, equals('Text Summarizer'));
       expect(prompt.description, equals('Summarizes input text concisely'));
       expect(prompt.messages, hasLength(2));
-      expect(prompt.messages![0].role, equals('system'));
-      expect(prompt.messages![1].role, equals('user'));
+      expect(prompt.messages![0].role, equals(MessageRole.system));
+      expect(prompt.messages![1].role, equals(MessageRole.user));
       expect(prompt.modelParameters?.temperature, equals(0.5));
       expect(prompt.testData, hasLength(1));
       expect(prompt.testData![0].name, equals('summarization_test'));
