@@ -2,6 +2,7 @@ name: Text Summarizer
 description: Summarizes input text concisely
 model_parameters:
   temperature: 0.5
+model: openai/gpt-4o
 messages:
   - role: system
     content: You are a text summarizer. Your only job is to summarize text given to you.
