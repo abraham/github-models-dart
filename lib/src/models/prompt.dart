@@ -10,6 +10,9 @@ part 'prompt.g.dart';
 @freezed
 abstract class Prompt with _$Prompt {
   const factory Prompt({
+    /// The model to use for this prompt.
+    required String model,
+
     /// Name or title of the prompt.
     String? name,
 

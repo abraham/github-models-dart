@@ -8,11 +8,12 @@ void main() {
       expect(() => Message(), returnsNormally);
       expect(() => ModelParameters(), returnsNormally);
       expect(() => TestData(), returnsNormally);
-      expect(() => Prompt(), returnsNormally);
+      expect(() => Prompt(model: 'test-model'), returnsNormally);
     });
 
     test('integration - can create complete prompt with all components', () {
       final prompt = Prompt(
+        model: 'gpt-4',
         name: 'Integration Test Prompt',
         description: 'Tests integration between all components',
         version: '1.0.0',
@@ -35,6 +36,7 @@ void main() {
       );
 
       // Verify all components are properly integrated
+      expect(prompt.model, equals('gpt-4'));
       expect(prompt.name, equals('Integration Test Prompt'));
       expect(prompt.messages, hasLength(2));
       expect(prompt.modelParameters, isNotNull);

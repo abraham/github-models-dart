@@ -15,7 +15,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Prompt {
 
-/// Name or title of the prompt.
+/// The model to use for this prompt.
+ String get model;/// Name or title of the prompt.
  String? get name;/// Description of the prompt's purpose.
  String? get description;/// Version of the prompt.
  String? get version;/// List of messages in the conversation.
@@ -34,16 +35,16 @@ $PromptCopyWith<Prompt> get copyWith => _$PromptCopyWithImpl<Prompt>(this as Pro
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Prompt&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.version, version) || other.version == version)&&const DeepCollectionEquality().equals(other.messages, messages)&&(identical(other.modelParameters, modelParameters) || other.modelParameters == modelParameters)&&const DeepCollectionEquality().equals(other.testData, testData));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Prompt&&(identical(other.model, model) || other.model == model)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.version, version) || other.version == version)&&const DeepCollectionEquality().equals(other.messages, messages)&&(identical(other.modelParameters, modelParameters) || other.modelParameters == modelParameters)&&const DeepCollectionEquality().equals(other.testData, testData));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,description,version,const DeepCollectionEquality().hash(messages),modelParameters,const DeepCollectionEquality().hash(testData));
+int get hashCode => Object.hash(runtimeType,model,name,description,version,const DeepCollectionEquality().hash(messages),modelParameters,const DeepCollectionEquality().hash(testData));
 
 @override
 String toString() {
-  return 'Prompt(name: $name, description: $description, version: $version, messages: $messages, modelParameters: $modelParameters, testData: $testData)';
+  return 'Prompt(model: $model, name: $name, description: $description, version: $version, messages: $messages, modelParameters: $modelParameters, testData: $testData)';
 }
 
 
@@ -54,7 +55,7 @@ abstract mixin class $PromptCopyWith<$Res>  {
   factory $PromptCopyWith(Prompt value, $Res Function(Prompt) _then) = _$PromptCopyWithImpl;
 @useResult
 $Res call({
- String? name, String? description, String? version, List<Message>? messages,@JsonKey(name: 'model_parameters') ModelParameters? modelParameters,@JsonKey(name: 'test_data') List<TestData>? testData
+ String model, String? name, String? description, String? version, List<Message>? messages,@JsonKey(name: 'model_parameters') ModelParameters? modelParameters,@JsonKey(name: 'test_data') List<TestData>? testData
 });
 
 
@@ -71,9 +72,10 @@ class _$PromptCopyWithImpl<$Res>
 
 /// Create a copy of Prompt
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? description = freezed,Object? version = freezed,Object? messages = freezed,Object? modelParameters = freezed,Object? testData = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? model = null,Object? name = freezed,Object? description = freezed,Object? version = freezed,Object? messages = freezed,Object? modelParameters = freezed,Object? testData = freezed,}) {
   return _then(_self.copyWith(
-name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+model: null == model ? _self.model : model // ignore: cast_nullable_to_non_nullable
+as String,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String?,version: freezed == version ? _self.version : version // ignore: cast_nullable_to_non_nullable
 as String?,messages: freezed == messages ? _self.messages : messages // ignore: cast_nullable_to_non_nullable
@@ -176,10 +178,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? name,  String? description,  String? version,  List<Message>? messages, @JsonKey(name: 'model_parameters')  ModelParameters? modelParameters, @JsonKey(name: 'test_data')  List<TestData>? testData)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String model,  String? name,  String? description,  String? version,  List<Message>? messages, @JsonKey(name: 'model_parameters')  ModelParameters? modelParameters, @JsonKey(name: 'test_data')  List<TestData>? testData)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Prompt() when $default != null:
-return $default(_that.name,_that.description,_that.version,_that.messages,_that.modelParameters,_that.testData);case _:
+return $default(_that.model,_that.name,_that.description,_that.version,_that.messages,_that.modelParameters,_that.testData);case _:
   return orElse();
 
 }
@@ -197,10 +199,10 @@ return $default(_that.name,_that.description,_that.version,_that.messages,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? name,  String? description,  String? version,  List<Message>? messages, @JsonKey(name: 'model_parameters')  ModelParameters? modelParameters, @JsonKey(name: 'test_data')  List<TestData>? testData)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String model,  String? name,  String? description,  String? version,  List<Message>? messages, @JsonKey(name: 'model_parameters')  ModelParameters? modelParameters, @JsonKey(name: 'test_data')  List<TestData>? testData)  $default,) {final _that = this;
 switch (_that) {
 case _Prompt():
-return $default(_that.name,_that.description,_that.version,_that.messages,_that.modelParameters,_that.testData);case _:
+return $default(_that.model,_that.name,_that.description,_that.version,_that.messages,_that.modelParameters,_that.testData);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -217,10 +219,10 @@ return $default(_that.name,_that.description,_that.version,_that.messages,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? name,  String? description,  String? version,  List<Message>? messages, @JsonKey(name: 'model_parameters')  ModelParameters? modelParameters, @JsonKey(name: 'test_data')  List<TestData>? testData)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String model,  String? name,  String? description,  String? version,  List<Message>? messages, @JsonKey(name: 'model_parameters')  ModelParameters? modelParameters, @JsonKey(name: 'test_data')  List<TestData>? testData)?  $default,) {final _that = this;
 switch (_that) {
 case _Prompt() when $default != null:
-return $default(_that.name,_that.description,_that.version,_that.messages,_that.modelParameters,_that.testData);case _:
+return $default(_that.model,_that.name,_that.description,_that.version,_that.messages,_that.modelParameters,_that.testData);case _:
   return null;
 
 }
@@ -232,9 +234,11 @@ return $default(_that.name,_that.description,_that.version,_that.messages,_that.
 @JsonSerializable()
 
 class _Prompt implements Prompt {
-  const _Prompt({this.name, this.description, this.version, final  List<Message>? messages, @JsonKey(name: 'model_parameters') this.modelParameters, @JsonKey(name: 'test_data') final  List<TestData>? testData}): _messages = messages,_testData = testData;
+  const _Prompt({required this.model, this.name, this.description, this.version, final  List<Message>? messages, @JsonKey(name: 'model_parameters') this.modelParameters, @JsonKey(name: 'test_data') final  List<TestData>? testData}): _messages = messages,_testData = testData;
   factory _Prompt.fromJson(Map<String, dynamic> json) => _$PromptFromJson(json);
 
+/// The model to use for this prompt.
+@override final  String model;
 /// Name or title of the prompt.
 @override final  String? name;
 /// Description of the prompt's purpose.
@@ -279,16 +283,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Prompt&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.version, version) || other.version == version)&&const DeepCollectionEquality().equals(other._messages, _messages)&&(identical(other.modelParameters, modelParameters) || other.modelParameters == modelParameters)&&const DeepCollectionEquality().equals(other._testData, _testData));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Prompt&&(identical(other.model, model) || other.model == model)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.version, version) || other.version == version)&&const DeepCollectionEquality().equals(other._messages, _messages)&&(identical(other.modelParameters, modelParameters) || other.modelParameters == modelParameters)&&const DeepCollectionEquality().equals(other._testData, _testData));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,description,version,const DeepCollectionEquality().hash(_messages),modelParameters,const DeepCollectionEquality().hash(_testData));
+int get hashCode => Object.hash(runtimeType,model,name,description,version,const DeepCollectionEquality().hash(_messages),modelParameters,const DeepCollectionEquality().hash(_testData));
 
 @override
 String toString() {
-  return 'Prompt(name: $name, description: $description, version: $version, messages: $messages, modelParameters: $modelParameters, testData: $testData)';
+  return 'Prompt(model: $model, name: $name, description: $description, version: $version, messages: $messages, modelParameters: $modelParameters, testData: $testData)';
 }
 
 
@@ -299,7 +303,7 @@ abstract mixin class _$PromptCopyWith<$Res> implements $PromptCopyWith<$Res> {
   factory _$PromptCopyWith(_Prompt value, $Res Function(_Prompt) _then) = __$PromptCopyWithImpl;
 @override @useResult
 $Res call({
- String? name, String? description, String? version, List<Message>? messages,@JsonKey(name: 'model_parameters') ModelParameters? modelParameters,@JsonKey(name: 'test_data') List<TestData>? testData
+ String model, String? name, String? description, String? version, List<Message>? messages,@JsonKey(name: 'model_parameters') ModelParameters? modelParameters,@JsonKey(name: 'test_data') List<TestData>? testData
 });
 
 
@@ -316,9 +320,10 @@ class __$PromptCopyWithImpl<$Res>
 
 /// Create a copy of Prompt
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = freezed,Object? description = freezed,Object? version = freezed,Object? messages = freezed,Object? modelParameters = freezed,Object? testData = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? model = null,Object? name = freezed,Object? description = freezed,Object? version = freezed,Object? messages = freezed,Object? modelParameters = freezed,Object? testData = freezed,}) {
   return _then(_Prompt(
-name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+model: null == model ? _self.model : model // ignore: cast_nullable_to_non_nullable
+as String,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String?,version: freezed == version ? _self.version : version // ignore: cast_nullable_to_non_nullable
 as String?,messages: freezed == messages ? _self._messages : messages // ignore: cast_nullable_to_non_nullable

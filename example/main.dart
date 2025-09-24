@@ -37,6 +37,7 @@ Future<void> loadPromptFile(String filePath) async {
     final prompt = Prompt.fromYaml(mapData);
 
     // Display prompt information
+    print('Model: ${prompt.model}');
     print('Prompt Name: ${prompt.name ?? "Unnamed"}');
     print('Description: ${prompt.description ?? "No description"}');
     print('Version: ${prompt.version ?? "No version"}');
