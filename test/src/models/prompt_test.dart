@@ -4,7 +4,8 @@ import 'package:github_models/github_models.dart';
 void main() {
   group('Prompt', () {
     test('creates with null fields by default', () {
-      const prompt = Prompt();
+      const prompt = Prompt(model: 'gpt-4');
+      expect(prompt.model, equals('gpt-4'));
       expect(prompt.name, isNull);
       expect(prompt.description, isNull);
       expect(prompt.version, isNull);
@@ -15,6 +16,7 @@ void main() {
 
     test('creates with provided fields', () {
       final prompt = Prompt(
+        model: 'gpt-4',
         name: 'Test Prompt',
         description: 'A test prompt for validation',
         version: '1.0.0',
@@ -32,6 +34,7 @@ void main() {
         ],
       );
 
+      expect(prompt.model, equals('gpt-4'));
       expect(prompt.name, equals('Test Prompt'));
       expect(prompt.description, equals('A test prompt for validation'));
       expect(prompt.version, equals('1.0.0'));
@@ -46,6 +49,7 @@ void main() {
 
     test('creates from YAML map with nested objects', () {
       final yaml = {
+        'model': 'gpt-3.5-turbo',
         'name': 'YAML Prompt',
         'description': 'Created from YAML',
         'version': '2.0.0',
@@ -66,6 +70,7 @@ void main() {
 
       final prompt = Prompt.fromYaml(yaml);
 
+      expect(prompt.model, equals('gpt-3.5-turbo'));
       expect(prompt.name, equals('YAML Prompt'));
       expect(prompt.description, equals('Created from YAML'));
       expect(prompt.version, equals('2.0.0'));
@@ -81,6 +86,7 @@ void main() {
 
     test('handles partial YAML data', () {
       final yaml = {
+        'model': 'claude-3',
         'name': 'Minimal Prompt',
         'messages': [
           {'role': 'user', 'content': 'Hello'},
@@ -89,6 +95,7 @@ void main() {
 
       final prompt = Prompt.fromYaml(yaml);
 
+      expect(prompt.model, equals('claude-3'));
       expect(prompt.name, equals('Minimal Prompt'));
       expect(prompt.description, isNull);
       expect(prompt.version, isNull);
@@ -100,6 +107,7 @@ void main() {
 
     test('converts to JSON with snake_case', () {
       final prompt = Prompt(
+        model: 'gemini-pro',
         name: 'JSON Prompt',
         modelParameters: const ModelParameters(temperature: 0.6),
         testData: [
@@ -108,11 +116,46 @@ void main() {
       );
 
       final json = prompt.toJson();
+      expect(json['model'], equals('gemini-pro'));
       expect(json['name'], equals('JSON Prompt'));
       expect(json['model_parameters'], isA<ModelParameters>());
       expect(json['model_parameters'].temperature, equals(0.6));
       expect(json['test_data'], isA<List>());
       expect(json['test_data'][0].name, equals('test'));
+    });
+
+    test('creates from JSON with model field', () {
+      final json = {
+        'model': 'claude-2',
+        'name': 'JSON Test Prompt',
+        'description': 'A prompt created from JSON',
+      };
+
+      final prompt = Prompt.fromJson(json);
+
+      expect(prompt.model, equals('claude-2'));
+      expect(prompt.name, equals('JSON Test Prompt'));
+      expect(prompt.description, equals('A prompt created from JSON'));
+    });
+
+    test('requires model field and fails when missing from JSON', () {
+      final json = {
+        'name': 'Invalid Prompt',
+        'description': 'This should fail',
+      };
+
+      expect(() => Prompt.fromJson(json), throwsA(isA<TypeError>()));
+    });
+
+    test('requires model field and fails when missing from YAML', () {
+      final yaml = {
+        'name': 'Invalid YAML Prompt',
+        'messages': [
+          {'role': 'user', 'content': 'Hello'},
+        ],
+      };
+
+      expect(() => Prompt.fromYaml(yaml), throwsA(isA<TypeError>()));
     });
   });
 }

@@ -7,6 +7,7 @@ part of 'prompt.dart';
 // **************************************************************************
 
 _Prompt _$PromptFromJson(Map<String, dynamic> json) => _Prompt(
+  model: json['model'] as String,
   name: json['name'] as String?,
   description: json['description'] as String?,
   version: json['version'] as String?,
@@ -24,6 +25,7 @@ _Prompt _$PromptFromJson(Map<String, dynamic> json) => _Prompt(
 );
 
 Map<String, dynamic> _$PromptToJson(_Prompt instance) => <String, dynamic>{
+  'model': instance.model,
   'name': instance.name,
   'description': instance.description,
   'version': instance.version,

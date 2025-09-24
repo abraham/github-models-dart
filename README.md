@@ -35,6 +35,7 @@ import 'package:github_models/github_models.dart';
 void main() {
   // Example YAML data as a Map
   final yamlData = {
+    'model': 'gpt-4',
     'name': 'Code Assistant',
     'description': 'Helps with coding tasks',
     'version': '2.0.0',
@@ -64,6 +65,7 @@ import 'package:github_models/github_models.dart';
 
 void main() {
   final prompt = Prompt(
+    model: 'gpt-4',
     name: 'My Assistant',
     description: 'A helpful AI assistant',
     version: '1.0.0',
@@ -86,6 +88,7 @@ import 'package:github_models/github_models.dart';
 void main() {
   // Create a comprehensive prompt with all available features
   final prompt = Prompt(
+    model: 'gpt-4',
     name: 'Creative Writing Assistant',
     description: 'A prompt for creative writing assistance',
     version: '1.2.0',
