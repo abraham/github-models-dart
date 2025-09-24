@@ -4,7 +4,9 @@ model_parameters:
   temperature: 0.5
 messages:
   - role: system
-    content: You are a text summarizer. Your only job is to summarize text given to you.
+    content: >-
+      You are a text summarizer. Your only job is to summarize text given to
+      you.
   - role: user
     content: |
       Summarize the given text, beginning with "Summary -":
@@ -20,3 +22,4 @@ test_data:
         The dog was too tired to react.
     expected_output:
       summary: Summary - A fox jumped over a lazy, unresponsive dog.
+model: openai/gpt-5
