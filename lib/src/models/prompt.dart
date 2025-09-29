@@ -32,6 +32,22 @@ abstract class Prompt with _$Prompt {
     @JsonKey(name: 'test_data') List<TestData>? testData,
   }) = _Prompt;
 
+  const Prompt._();
+
+  /// Returns the first message with the specified role, or null if not found.
+  Message? firstMessage(MessageRole role) {
+    final messageList = messages;
+    if (messageList == null) return null;
+
+    for (final message in messageList) {
+      if (message.role == role) {
+        return message;
+      }
+    }
+
+    return null;
+  }
+
   factory Prompt.fromJson(Map<String, dynamic> json) => _$PromptFromJson(json);
 
   /// Creates Prompt from YAML data.

@@ -233,8 +233,8 @@ return $default(_that.model,_that.name,_that.description,_that.version,_that.mes
 /// @nodoc
 @JsonSerializable()
 
-class _Prompt implements Prompt {
-  const _Prompt({required this.model, this.name, this.description, this.version, final  List<Message>? messages, @JsonKey(name: 'model_parameters') this.modelParameters, @JsonKey(name: 'test_data') final  List<TestData>? testData}): _messages = messages,_testData = testData;
+class _Prompt extends Prompt {
+  const _Prompt({required this.model, this.name, this.description, this.version, final  List<Message>? messages, @JsonKey(name: 'model_parameters') this.modelParameters, @JsonKey(name: 'test_data') final  List<TestData>? testData}): _messages = messages,_testData = testData,super._();
   factory _Prompt.fromJson(Map<String, dynamic> json) => _$PromptFromJson(json);
 
 /// The model to use for this prompt.

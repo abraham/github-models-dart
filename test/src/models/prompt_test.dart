@@ -157,5 +157,110 @@ void main() {
 
       expect(() => Prompt.fromYaml(yaml), throwsA(isA<TypeError>()));
     });
+
+    group('firstMessage', () {
+      test('returns first message with matching role', () {
+        final prompt = Prompt(
+          model: 'gpt-4',
+          messages: [
+            const Message(role: MessageRole.system, content: 'System message'),
+            const Message(
+              role: MessageRole.user,
+              content: 'First user message',
+            ),
+            const Message(
+              role: MessageRole.assistant,
+              content: 'Assistant response',
+            ),
+            const Message(
+              role: MessageRole.user,
+              content: 'Second user message',
+            ),
+          ],
+        );
+
+        final firstUser = prompt.firstMessage(MessageRole.user);
+        expect(firstUser, isNotNull);
+        expect(firstUser!.role, equals(MessageRole.user));
+        expect(firstUser.content, equals('First user message'));
+
+        final firstSystem = prompt.firstMessage(MessageRole.system);
+        expect(firstSystem, isNotNull);
+        expect(firstSystem!.role, equals(MessageRole.system));
+        expect(firstSystem.content, equals('System message'));
+
+        final firstAssistant = prompt.firstMessage(MessageRole.assistant);
+        expect(firstAssistant, isNotNull);
+        expect(firstAssistant!.role, equals(MessageRole.assistant));
+        expect(firstAssistant.content, equals('Assistant response'));
+      });
+
+      test('returns null when role not found', () {
+        final prompt = Prompt(
+          model: 'gpt-4',
+          messages: [
+            const Message(role: MessageRole.user, content: 'User message'),
+          ],
+        );
+
+        final systemMessage = prompt.firstMessage(MessageRole.system);
+        expect(systemMessage, isNull);
+
+        final assistantMessage = prompt.firstMessage(MessageRole.assistant);
+        expect(assistantMessage, isNull);
+      });
+
+      test('returns null when messages list is null', () {
+        const prompt = Prompt(model: 'gpt-4');
+
+        final userMessage = prompt.firstMessage(MessageRole.user);
+        expect(userMessage, isNull);
+
+        final systemMessage = prompt.firstMessage(MessageRole.system);
+        expect(systemMessage, isNull);
+
+        final assistantMessage = prompt.firstMessage(MessageRole.assistant);
+        expect(assistantMessage, isNull);
+      });
+
+      test('returns null when messages list is empty', () {
+        const prompt = Prompt(model: 'gpt-4', messages: []);
+
+        final userMessage = prompt.firstMessage(MessageRole.user);
+        expect(userMessage, isNull);
+      });
+
+      test(
+        'returns first message when multiple messages with same role exist',
+        () {
+          final prompt = Prompt(
+            model: 'gpt-4',
+            messages: [
+              const Message(role: MessageRole.user, content: 'First user'),
+              const Message(role: MessageRole.user, content: 'Second user'),
+              const Message(role: MessageRole.user, content: 'Third user'),
+            ],
+          );
+
+          final firstUser = prompt.firstMessage(MessageRole.user);
+          expect(firstUser, isNotNull);
+          expect(firstUser!.content, equals('First user'));
+        },
+      );
+
+      test('handles messages with null role', () {
+        final prompt = Prompt(
+          model: 'gpt-4',
+          messages: [
+            const Message(role: null, content: 'Null role message'),
+            const Message(role: MessageRole.user, content: 'User message'),
+          ],
+        );
+
+        final userMessage = prompt.firstMessage(MessageRole.user);
+        expect(userMessage, isNotNull);
+        expect(userMessage!.content, equals('User message'));
+      });
+    });
   });
 }
